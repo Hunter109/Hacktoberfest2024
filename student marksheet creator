@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marksheet Creator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input, button {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Marksheet Creator</h2>
+        
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" placeholder="Enter Student Name">
+        
+        <label for="maths">Marks in Maths:</label>
+        <input type="number" id="maths" placeholder="Enter Marks in Maths">
+
+        <label for="science">Marks in Science:</label>
+        <input type="number" id="science" placeholder="Enter Marks in Science">
+
+        <label for="english">Marks in English:</label>
+        <input type="number" id="english" placeholder="Enter Marks in English">
+        
+        <button onclick="generateMarksheet()">Generate Marksheet</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function generateMarksheet() {
+            // Get student details
+            const name = document.getElementById('studentName').value;
+            const maths = parseInt(document.getElementById('maths').value);
+            const science = parseInt(document.getElementById('science').value);
+            const english = parseInt(document.getElementById('english').value);
+            
+            // Validate input
+            if (!name || isNaN(maths) || isNaN(science) || isNaN(english)) {
+                alert('Please fill all fields with valid data!');
+                return;
+            }
+            
+            // Calculate total and average
+            const total = maths + science + english;
+            const average = total / 3;
+            const grade = getGrade(average);
+
+            // Display marksheet
+            document.getElementById('result').innerHTML = `
+                <h3>Marksheet for ${name}</h3>
+                <p><strong>Maths:</strong> ${maths}</p>
+                <p><strong>Science:</strong> ${science}</p>
+                <p><strong>English:</strong> ${english}</p>
+                <p><strong>Total Marks:</strong> ${total}/300</p>
+                <p><strong>Average Marks:</strong> ${average.toFixed(2)}</p>
+                <p><strong>Grade:</strong> ${grade}</p>
+            `;
+        }
+
+        function getGrade(average) {
+            if (average >= 90) {
+                return 'A+';
+            } else if (average >= 80) {
+                return 'A';
+            } else if (average >= 70) {
+                return 'B+';
+            } else if (average >= 60) {
+                return 'B';
+            } else if (average >= 50) {
+                return 'C+';
+            } else if (average >= 40) {
+                return 'C';
+            } else {
+                return 'F';
+            }
+        }
+    </script>
+</body>
+</html>
